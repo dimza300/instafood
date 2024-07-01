@@ -49,46 +49,49 @@ class DatabaseHelper {
     await db.insert('user', {'username': 'admin', 'password': 'admin'});
 
     await db.insert('content', {
-      'title': 'Title 1',
-      'subtitle': 'Subtitle 1',
-      'description': 'Description 1',
-      'file_image': 'https://via.placeholder.com/150',
+      'title': 'Seblak Komplit',
+      'subtitle': 'Jl. Baru ',
+      'description':
+          'seblak komplit , kerupuk, telor, sosis, baso, cuangki lidah, batagor kering, kwetiaw, sayuran',
+      'file_image': '1.jpeg',
       'rating': 5
     });
     await db.insert('content', {
-      'title': 'Title 2',
-      'subtitle': 'Subtitle 2',
-      'description': 'Description 2',
-      'file_image': 'https://via.placeholder.com/150',
+      'title': 'Seblak Ceker',
+      'subtitle': 'Jl. Baru',
+      'description': 'isian seperti seblak komplit ditambah ceker 3 biji',
+      'file_image': '2.jpeg',
       'rating': 4
     });
     await db.insert('content', {
-      'title': 'Title 3',
-      'subtitle': 'Subtitle 3',
-      'description': 'Description 3',
-      'file_image': 'https://via.placeholder.com/150',
+      'title': 'Seblak Seafood',
+      'subtitle': 'Jl. Baru',
+      'description':
+          ' isian seperti seblak komplit ditambah seafood dumpling keju dan ayam, tofu, krab stik',
+      'file_image': '3.jpeg',
       'rating': 3
     });
     await db.insert('content', {
-      'title': 'Title 4',
-      'subtitle': 'Subtitle 4',
-      'description': 'Description 4',
-      'file_image': 'https://via.placeholder.com/150',
+      'title': 'Mie Setan',
+      'subtitle': 'Jl. Baru',
+      'description': 'mie goreng pedas dengan tambahan telor, batagor kering, dan tulang',
+      'file_image': '4.jpeg',
       'rating': 4
     });
     await db.insert('content', {
-      'title': 'Title 5',
-      'subtitle': 'Subtitle 5',
-      'description': 'Description 5',
-      'file_image': 'https://via.placeholder.com/150',
-      'rating': 5
+      'title': 'Ceker Mercon',
+      'subtitle': 'Jl. Baru',
+      'description': 'isian ceker 10 biji dengan kuah pedas ditambah toping batagor kering',
+      'file_image': '5.jpeg',
+      'rating': 2
     });
     await db.insert('content', {
-      'title': 'Title 6',
-      'subtitle': 'Subtitle 6',
-      'description': 'Description 6',
-      'file_image': 'https://via.placeholder.com/150',
-      'rating': 3
+      'title': 'Baso Aci',
+      'subtitle': 'Jl. Baru',
+      'description':
+          'isian baso aci besar 1, baso aci kecil 5, dengan kuah gurih ditambah cuangki lidah, batagor kering, dan pilus cikur',
+      'file_image': '6.jpeg',
+      'rating': 1
     });
   }
 

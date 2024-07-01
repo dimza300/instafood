@@ -12,8 +12,7 @@ void main() async {
   const AndroidInitializationSettings initializationSettingsAndroid =
       AndroidInitializationSettings('@mipmap/ic_launcher');
 
-  const InitializationSettings initializationSettings =
-      InitializationSettings(
+  const InitializationSettings initializationSettings = InitializationSettings(
     android: initializationSettingsAndroid,
   );
 
@@ -71,11 +70,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(''),
-      //   backgroundColor: Colors.purple,
-      //   automaticallyImplyLeading: false,
-      // ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(

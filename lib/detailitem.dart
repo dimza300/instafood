@@ -27,8 +27,7 @@ class _DetailPageState extends State<DetailPage> {
       FlutterLocalNotificationsPlugin();
 
   Future<void> _showNotification(String title, String subtitle) async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
+    const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'high_importance_channel',
       'High Importance Notifications',
       channelDescription: 'your_channel_description',
@@ -105,33 +104,29 @@ class _DetailPageState extends State<DetailPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Image.network(
-                  widget.imageUrl,
-                ),
+                Image.asset('assets/images/' + widget.imageUrl),
                 const SizedBox(height: 16),
                 Row(
                   children: [
                     Expanded(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.title,
-                              style: const TextStyle(
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                            Text(
-                              widget.subtitle,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ]),
+                      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                        Text(
+                          widget.title,
+                          style: const TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          widget.subtitle,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w300,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]),
                     ),
                   ],
                 ),
@@ -141,8 +136,7 @@ class _DetailPageState extends State<DetailPage> {
                     for (int i = 1; i <= widget.rating; i++)
                       const Icon(Icons.star, color: Colors.yellow, size: 20),
                     for (int i = 1; i <= 5 - widget.rating; i++)
-                      const Icon(Icons.star_border,
-                          color: Colors.yellow, size: 20),
+                      const Icon(Icons.star_border, color: Colors.yellow, size: 20),
                   ],
                 ),
               ],

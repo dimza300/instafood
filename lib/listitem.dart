@@ -37,12 +37,6 @@ class _ListItemPageState extends State<ListItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Makanan Khas Purwakarta',
-      //       style: TextStyle(color: Colors.white, fontSize: 18)),
-      //   backgroundColor: Colors.deepPurple,
-      //   automaticallyImplyLeading: false, // Remove back button
-      // ),
       body: Column(children: [
         Container(
             width: double.infinity,
@@ -57,38 +51,35 @@ class _ListItemPageState extends State<ListItemPage> {
             ),
             child: Column(children: <Widget>[
               Container(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.12),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.12),
                   alignment: Alignment.topLeft,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        FutureBuilder<String>(
-                            future: _getUsername(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  "Hello ${snapshot.data},",
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                                );
-                              } else {
-                                return const Text("Hmm");
-                              }
-                            }),
-                        const SizedBox(height: 5),
-                        const Text(
-                          'Makanan Khas Purwakarta',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ]))
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    FutureBuilder<String>(
+                        future: _getUsername(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              "Hello ${snapshot.data},",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            );
+                          } else {
+                            return const Text("Hmm");
+                          }
+                        }),
+                    const SizedBox(height: 5),
+                    const Text(
+                      'Makanan Khas Purwakarta',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                  ]))
             ])),
         Expanded(
             child: FutureBuilder<List<Map<String, dynamic>>>(
@@ -107,21 +98,17 @@ class _ListItemPageState extends State<ListItemPage> {
                 itemBuilder: (context, index) {
                   final item = content[index];
                   return ListTile(
-                    leading: Image.network(item['file_image']),
+                    leading: Image.asset('assets/images/' + item['file_image']),
                     title: Text(item['title']),
-                    subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(item['subtitle']),
-                          Row(children: [
-                            for (int i = 1; i <= item['rating']; i++)
-                              const Icon(Icons.star,
-                                  color: Colors.yellow, size: 20),
-                            for (int i = 1; i <= 5 - item['rating']; i++)
-                              const Icon(Icons.star_border,
-                                  color: Colors.yellow, size: 20),
-                          ])
-                        ]),
+                    subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(item['subtitle']),
+                      Row(children: [
+                        for (int i = 1; i <= item['rating']; i++)
+                          const Icon(Icons.star, color: Colors.yellow, size: 20),
+                        for (int i = 1; i <= 5 - item['rating']; i++)
+                          const Icon(Icons.star_border, color: Colors.yellow, size: 20),
+                      ])
+                    ]),
                     onTap: () {
                       Navigator.push(
                         context,
