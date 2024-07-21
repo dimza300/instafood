@@ -16,7 +16,6 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   final UserServices _userServices = UserServices();
   final _storage = FlutterSecureStorage();
-  User? _user;
 
   @override
   void initState() {
@@ -35,9 +34,7 @@ class _SplashPageState extends State<SplashPage> {
       }
       final user = await _userServices.fetchUserData();
       if (user != null) {
-        setState(() {
-          _user = user;
-        });
+        setState(() {});
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => const ListItemPage()),
