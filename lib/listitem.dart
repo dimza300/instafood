@@ -1,8 +1,12 @@
+import 'package:Instafood/api/ItemServices.dart';
+import 'package:Instafood/api/UserServices.dart';
+import 'package:Instafood/helpers/GlobalConst.dart';
+import 'package:Instafood/login.dart';
+import 'package:Instafood/model/Item.dart';
 import 'package:flutter/material.dart';
 import 'detailitem.dart';
 import 'change_password.dart';
-import 'main.dart';
-import 'helpers/database_helper.dart'; // Import DetailPage
+// import 'helpers/database_helper.dart'; // Import DetailPage
 
 class ListItemPage extends StatefulWidget {
   const ListItemPage({super.key});
@@ -12,14 +16,17 @@ class ListItemPage extends StatefulWidget {
 }
 
 class _ListItemPageState extends State<ListItemPage> {
-  final DatabaseHelper _databaseHelper = DatabaseHelper();
-  late Future<List<Map<String, dynamic>>> _contentList;
+  final UserServices _userServices = UserServices();
+  // final DatabaseHelper _databaseHelper = DatabaseHelper();
+  final Itemservices _itemservices = Itemservices();
+  late Future<ResponseItemModel> _contentList;
+  // late Future<List<Map<String, dynamic>>> _contentList;
 
   Future<String> _getUsername() async {
     try {
-      var user = await _databaseHelper.getUserActive();
-      if (user != null && user.containsKey("username")) {
-        return user["username"];
+      final user = await _userServices.fetchUserData();
+      if (user != null) {
+        return user.name;
       } else {
         throw Exception("User not found or 'username' key missing");
       }
@@ -28,10 +35,18 @@ class _ListItemPageState extends State<ListItemPage> {
     }
   }
 
+  Future<void> _Logout() async {
+    await _userServices.logout();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const LoginPage()),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    _contentList = _databaseHelper.getContent();
+    _contentList = _itemservices.getItem();
   }
 
   @override
@@ -43,12 +58,12 @@ class _ListItemPageState extends State<ListItemPage> {
             height: MediaQuery.of(context).size.height * 0.3,
             padding: const EdgeInsets.all(16),
             decoration: const BoxDecoration(
-              color: Colors.deepPurple,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(24.0),
-                bottomRight: Radius.circular(24.0),
-              ),
-            ),
+                color: Colors.deepPurple,
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(24.0),
+                  bottomRight: Radius.circular(24.0),
+                ),
+                gradient: LinearGradient(colors: [Colors.deepPurple, Colors.pink])),
             child: Column(children: <Widget>[
               Container(
                   padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.12),
@@ -82,30 +97,32 @@ class _ListItemPageState extends State<ListItemPage> {
                   ]))
             ])),
         Expanded(
-            child: FutureBuilder<List<Map<String, dynamic>>>(
+            // child: FutureBuilder<List<Map<String, dynamic>>>(
+            child: FutureBuilder<ResponseItemModel>(
           future: _contentList,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
               return Center(child: Text('Error: ${snapshot.error}'));
-            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            } else if (!snapshot.hasData || snapshot.data!.data.isEmpty) {
               return const Center(child: Text('No content available'));
             } else {
-              final List<Map<String, dynamic>> content = snapshot.data!;
+              final List<Item> content = snapshot.data!.data;
               return ListView.builder(
                 itemCount: content.length,
                 itemBuilder: (context, index) {
                   final item = content[index];
                   return ListTile(
-                    leading: Image.asset('assets/images/' + item['file_image']),
-                    title: Text(item['title']),
+                    leading: Image.network(Globalconst.baseUrlApi + "/item_images/" + item.image),
+                    // leading: Image.asset('assets/images/${item.image}'),
+                    title: Text(item.itemName),
                     subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(item['subtitle']),
+                      Text(item.itemName),
                       Row(children: [
-                        for (int i = 1; i <= item['rating']; i++)
+                        for (int i = 1; i <= item.rating; i++)
                           const Icon(Icons.star, color: Colors.yellow, size: 20),
-                        for (int i = 1; i <= 5 - item['rating']; i++)
+                        for (int i = 1; i <= 5 - item.rating; i++)
                           const Icon(Icons.star_border, color: Colors.yellow, size: 20),
                       ])
                     ]),
@@ -114,11 +131,11 @@ class _ListItemPageState extends State<ListItemPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => DetailPage(
-                              title: item['title'],
-                              description: item['description'],
-                              imageUrl: item['file_image'],
-                              rating: item['rating'],
-                              subtitle: item['subtitle']),
+                              title: item.itemName,
+                              description: item.description,
+                              imageUrl: item.image,
+                              rating: item.rating,
+                              subtitle: item.itemName),
                         ),
                       );
                     },
@@ -130,6 +147,9 @@ class _ListItemPageState extends State<ListItemPage> {
         )),
       ]),
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        currentIndex: 0,
+        selectedItemColor: Colors.purple,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -143,15 +163,14 @@ class _ListItemPageState extends State<ListItemPage> {
             icon: Icon(Icons.exit_to_app),
             label: 'Logout',
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.abc),
+          //   label: 'Ext',
+          // ),
         ],
-        currentIndex: 0,
-        selectedItemColor: Colors.purple,
         onTap: (index) {
           if (index == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
-            );
+            _Logout();
           } else if (index == 1) {
             Navigator.pushReplacement(
               context,
@@ -163,6 +182,13 @@ class _ListItemPageState extends State<ListItemPage> {
               MaterialPageRoute(builder: (context) => const ListItemPage()),
             );
           }
+          // else if (index == 3) {
+          //   Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => OverlappingHeaderScreen()),
+          //   );
+          // }
         },
       ),
     );

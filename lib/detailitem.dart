@@ -1,3 +1,4 @@
+import 'package:Instafood/helpers/GlobalConst.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -104,7 +105,8 @@ class _DetailPageState extends State<DetailPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Image.asset('assets/images/' + widget.imageUrl),
+                Image.network(Globalconst.baseUrlApi + "/item_images/" + widget.imageUrl),
+                // Image.asset('assets/images/${widget.imageUrl}'),
                 const SizedBox(height: 16),
                 Row(
                   children: [

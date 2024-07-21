@@ -1,7 +1,7 @@
+import 'package:Instafood/login.dart';
 import 'package:flutter/material.dart';
 import 'helpers/database_helper.dart';
 import 'listitem.dart';
-import 'main.dart';
 
 class ChangePasswordPage extends StatefulWidget {
   const ChangePasswordPage({super.key});
@@ -170,7 +170,8 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.transparent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        textStyle: const TextStyle(fontSize: 18, color: Colors.white),
+                        textStyle:
+                            const TextStyle(fontSize: 18, color: Colors.white),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
