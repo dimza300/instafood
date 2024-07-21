@@ -1,7 +1,6 @@
 import 'package:Instafood/api/UserServices.dart';
 import 'package:Instafood/listitem.dart';
 import 'package:Instafood/login.dart';
-import 'package:Instafood/model/User.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,7 +14,7 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
   final UserServices _userServices = UserServices();
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   @override
   void initState() {

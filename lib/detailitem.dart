@@ -105,7 +105,7 @@ class _DetailPageState extends State<DetailPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Image.network(Globalconst.baseUrlApi + "/item_images/" + widget.imageUrl),
+                Image.network("${Globalconst.baseUrlApi}/item_images/${widget.imageUrl}"),
                 // Image.asset('assets/images/${widget.imageUrl}'),
                 const SizedBox(height: 16),
                 Row(

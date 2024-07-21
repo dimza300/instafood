@@ -114,7 +114,7 @@ class _ListItemPageState extends State<ListItemPage> {
                 itemBuilder: (context, index) {
                   final item = content[index];
                   return ListTile(
-                    leading: Image.network(Globalconst.baseUrlApi + "/item_images/" + item.image),
+                    leading: Image.network("${Globalconst.baseUrlApi}/item_images/${item.image}"),
                     // leading: Image.asset('assets/images/${item.image}'),
                     title: Text(item.itemName),
                     subtitle: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

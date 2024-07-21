@@ -5,8 +5,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 
 class UserServices {
-  final _storage = FlutterSecureStorage();
-  final globData = new Globalconst();
+  final _storage = const FlutterSecureStorage();
+  final globData = Globalconst();
   final url = Globalconst.baseUrlApi;
 
   Future<String?> login(String email, String password) async {

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class Itemservices {
-  final globData = new Globalconst();
+  final globData = Globalconst();
   final url = Globalconst.baseUrlApi;
 
   Future<ResponseItemModel> getItem() async {
